@@ -21,16 +21,3 @@ def chunk_text(text,size=500,overlap=100):
     return chunks
 
 
-
-
-def chunk_word(text,size=50,overlap=5):
-    words = text.split()
-    chunks=[]
-    step = size - overlap
-
-    for i in range(0,len(words),step):
-        chunk = " ".join(words[i:i+size])
-
-        chunks.append(chunk)
-
-    return chunks
