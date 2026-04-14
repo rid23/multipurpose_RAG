@@ -1,4 +1,4 @@
-from app.RAG.chunker import chunk_text, chunk_word
+from app.RAG.chunker import chunk_text
 from app.RAG.embedding import embed_vectors
 from pypdf import PdfReader
 
