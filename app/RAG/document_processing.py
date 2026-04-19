@@ -1,6 +1,13 @@
+
+from sentence_transformers import SentenceTransformer
+
 from app.RAG.chunker import chunk_text
 from app.RAG.embedding import embed_vectors
 from pypdf import PdfReader
+
+from app.db.vector_store import collection
+
+model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 
 
 def process_document(path):

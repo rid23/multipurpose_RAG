@@ -6,12 +6,8 @@ model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 
 def embed_vectors(chunks):
 
-    ids = []
-    embeddings = []
-
-    for chunk in chunks:
-        ids.append(str(uuid.uuid4()))
-        embeddings.append(model.encode(chunk))
+    ids = [str(uuid.uuid4()) for _ in chunks]
+    embeddings = model.encode(chunks, normalize_embeddings=True).tolist()
 
     collection.add(
         ids=ids,

@@ -9,7 +9,7 @@ client = AIClient()
 def generate_answer(query:str):
 
     # step 1 -- Embed query
-    query_embedding = model.encode(query)
+    query_embedding = model.encode(query, normalize_embeddings=True)
 
     # step 2 -- Retrieve context
     results = collection.query(
@@ -17,7 +17,8 @@ def generate_answer(query:str):
         n_results=3
     )
 
-    documents = results.get("documents",[[]])[0]
+    documents = results.get("documents",[])[0]
+    print(documents)
 
     if not documents:
         return {
@@ -25,7 +26,9 @@ def generate_answer(query:str):
             "sources":[]
         }
 
+
     context = "\n\n".join(documents)
+    print(context)
 
     # step 3 -- Build strict prompt
     prompt = build_prompt(context,query)
@@ -35,7 +38,7 @@ def generate_answer(query:str):
 
     return {
         "answer":answer,
-        "sources":documents
+        "sources": [doc for doc in documents]
     }
 
 
@@ -45,13 +48,7 @@ def generate_answer(query:str):
 def build_prompt(context,query):
     return f"""
 You are a strict AI assistant.
-
-RULES:
-1. Answer ONLY from the provided context
-2. DO NOT use outside knowledge
-3. If answer is not in context, say:
-        'I could not find this in provided documents'
-4. Be concise and clear
+use info
 
 CONTEXT:
 {context}
@@ -61,3 +58,4 @@ QUESTION:
 
 ANSWER:
 """
+
