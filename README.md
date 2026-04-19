@@ -1,4 +1,4 @@
-#  AI Customer Support Agent (RAG-Based)
+#  AI Support Agent (RAG-Based)
 
 An AI-powered customer support system that answers queries strictly from your business documents using Retrieval-Augmented Generation (RAG).
 
